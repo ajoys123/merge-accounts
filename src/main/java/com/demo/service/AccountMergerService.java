@@ -19,8 +19,8 @@ public class AccountMergerService {
 
 	AccountClient accountClient = new AccountClient();
 
-	public void mergeAccounts(String fileLocation) {
-		List<Account> csvAccounts = csvIO.readCsv(fileLocation);
+	public void mergeAccounts(String inputFile, String outputFile) {
+		List<Account> csvAccounts = csvIO.readCsv(inputFile);
 		AccountsDTO apiAccounts = accountClient.getAccounts();
 
 		Map<String, AccountDTO> apiAccountMap =
@@ -29,7 +29,7 @@ public class AccountMergerService {
 
 		mergeAccounts(csvAccounts, apiAccountMap);
 
-		csvIO.writeCsv(csvAccounts);
+		csvIO.writeCsv(csvAccounts, outputFile);
 	}
 
 	private List<Account> mergeAccounts(List<Account> csvAccounts, Map<String, AccountDTO> apiAccountMap) {

@@ -59,9 +59,9 @@ public class AccountMergerServiceTest {
 
 		when(_accountClient.getAccounts()).thenReturn(accountsDTO);
 
-		doNothing().when(_csvIO).writeCsv(any());
+		doNothing().when(_csvIO).writeCsv(any(), anyString());
 
-		_service.mergeAccounts("");
+		_service.mergeAccounts("", "");
 	}
 
 }

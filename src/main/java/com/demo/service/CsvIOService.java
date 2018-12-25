@@ -46,9 +46,9 @@ public class CsvIOService {
 		return accounts;
 	}
 
-	public void writeCsv(List<Account> accounts) {
+	public void writeCsv(List<Account> accounts, String outputFileName) {
 		final String commaSpace = ", ";
-		File f = new File("output.csv");
+		File f = new File(outputFileName);
 
 		try (FileWriter writer = new FileWriter(f)) {
 			writer.write("Account ID, First Name, Created On, Status, Status Set On\n");
