@@ -21,6 +21,7 @@ public class CsvIOService {
 		AtomicInteger i = new AtomicInteger(0);
 		try (Stream<String> stream = Files.lines(Paths.get(fileLocation))) {
 			stream.forEach(line -> {
+				//Do not add the header in the csv to accounts
 				if (i.get() != 0) {
 					String[] accountFields = line.split(",");
 					Account account = new Account();

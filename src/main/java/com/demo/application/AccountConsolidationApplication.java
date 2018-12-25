@@ -6,6 +6,6 @@ public class AccountConsolidationApplication {
 
 	public static void main(String args[]) {
 		AccountMergerService merger = new AccountMergerService();
-		merger.mergeAccounts("input.csv");
+		merger.mergeAccounts(args[0]);
 	}
 }
