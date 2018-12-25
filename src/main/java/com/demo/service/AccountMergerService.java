@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
 
 public class AccountMergerService {
 
+	CsvIOService csvIO = new CsvIOService();
+
+	AccountClient accountClient = new AccountClient();
+
 	public void mergeAccounts(String fileLocation) {
-		CsvIOService csvIO = new CsvIOService();
 		List<Account> csvAccounts = csvIO.readCsv(fileLocation);
-		AccountsDTO apiAccounts = new AccountClient().getAccounts();
+		AccountsDTO apiAccounts = accountClient.getAccounts();
 
 		Map<String, AccountDTO> apiAccountMap =
 				apiAccounts.getResults().stream()
