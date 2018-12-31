@@ -14,4 +14,4 @@ pwd
 exit 1
 fi
 
-./gradlew run --args="$1 $2"
+gradle run --args="$1 $2"
