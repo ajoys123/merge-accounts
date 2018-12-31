@@ -19,6 +19,12 @@ public class AccountMergerService {
 
 	AccountClient accountClient = new AccountClient();
 
+	/**
+	 * Merges accounts between the input csv file and result from /accounts end point
+	 *
+	 * @param inputFile Path to the input file
+	 * @param outputFile Name of the output file
+	 */
 	public void mergeAccounts(String inputFile, String outputFile) {
 		List<Account> csvAccounts = csvIO.readCsv(inputFile);
 		AccountsDTO apiAccounts = accountClient.getAccounts();
@@ -32,6 +38,12 @@ public class AccountMergerService {
 		csvIO.writeCsv(csvAccounts, outputFile);
 	}
 
+	/**
+	 * Returns a list of Account by merging the account from API Account map
+	 * @param csvAccounts
+	 * @param apiAccountMap
+	 * @return
+	 */
 	private List<Account> mergeAccounts(List<Account> csvAccounts, Map<String, AccountDTO> apiAccountMap) {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {

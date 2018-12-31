@@ -4,6 +4,7 @@ import com.demo.dto.AccountDTO;
 import com.demo.dto.AccountsDTO;
 import com.demo.model.Account;
 import com.demo.rest.client.AccountClient;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AccountMergerServiceTest {
@@ -62,6 +65,8 @@ public class AccountMergerServiceTest {
 		doNothing().when(_csvIO).writeCsv(any(), anyString());
 
 		_service.mergeAccounts("", "");
+
+		verify(_csvIO, times(2));
 	}
 
 }

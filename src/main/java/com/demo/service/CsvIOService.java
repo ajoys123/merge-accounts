@@ -13,11 +13,25 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+
+/**
+ * Service to read and write from CSV
+ */
 public class CsvIOService {
+
+	private static final Logger LOGGER = Logger.getLogger(CsvIOService.class.getName());
+	/**
+	 * Reads the input csv and returns a list of accounts
+	 * @param fileLocation
+	 * @return
+	 */
 	public List<Account> readCsv(String fileLocation) {
 		List<Account> accounts = new ArrayList<>();
+		//Variable to keep track of the header
 		AtomicInteger i = new AtomicInteger(0);
 		try (Stream<String> stream = Files.lines(Paths.get(fileLocation))) {
 			stream.forEach(line -> {
@@ -33,7 +47,7 @@ public class CsvIOService {
 					try {
 						account.setCreatedOn(df.parse(createdOn));
 					} catch (ParseException e) {
-						e.printStackTrace();
+						//Just catch the exception and do nothing. createdOn will be null for invalid dates
 					}
 					accounts.add(account);
 				}
@@ -41,11 +55,16 @@ public class CsvIOService {
 			});
 
 		} catch (IOException e) {
-
+			LOGGER.log(Level.SEVERE, "Exception occured", e);
 		}
 		return accounts;
 	}
 
+	/**
+	 * Writes to an output file
+	 * @param accounts
+	 * @param outputFileName
+	 */
 	public void writeCsv(List<Account> accounts, String outputFileName) {
 		final String commaSpace = ", ";
 		File f = new File(outputFileName);
